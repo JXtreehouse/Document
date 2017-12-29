@@ -77,7 +77,7 @@ function appinit(c) {
     app.debug.bOutline=true;
     create_gps_panel();
     create_up_buttons();
-    create_sensor_icons();
+    // create_sensor_icons();
     app.camera.flyTo({
         position: config.cameraStartPos,
         target: config.cameraStartTar,
@@ -206,7 +206,7 @@ function create_gps_panel() {
                 obj.destroy();
             })
         }
-        console.log(o.id);
+        // console.log(o.id);
         if(o.id){
             if(o.hasOwnProperty('id') && o.id.length == 8){
                 var name = o.name;
@@ -217,8 +217,7 @@ function create_gps_panel() {
                 }else{
                     tab3 = name.substring(0,4);
                 }
-        
-                console.log('档案馆.'+tab2+'.'+tab3+'.'+name);
+                // console.log('档案馆.'+tab2+'.'+tab3+'.'+name);
                 guiMd.pathHighLight('档案馆.'+tab2+'.'+tab3+'.'+name);
                 var target = app.query(o.id);
                 docu.fileBoxs.forEach(function (t) { t.visible = false });
@@ -232,15 +231,6 @@ function create_gps_panel() {
                 click_filebox(o.id);
         
                 // testObj = create_shujuan(target[0].pos,[1,1,1]);
-            }else if(o=="档案馆"){
-                guiMd.pathHighLight('档案馆');
-                set_wallopacity(1);
-                docu.fileBoxs.forEach(function (t) { t.visible = true });
-                app.camera.flyTo({
-                    position: config.cameraStartPos,
-                    target: config.cameraStartTar,
-                    time: config.cameraDelay
-                });
             }else if(o.name.indexOf("-")>-1){
                 var name = o.name;
                 guiMd.pathHighLight('档案馆.'+name);
@@ -266,6 +256,15 @@ function create_gps_panel() {
                     time: config.cameraDelay
                 });
             }
+        }else if(o=="档案馆"){
+            guiMd.pathHighLight('档案馆');
+            set_wallopacity(1);
+            docu.fileBoxs.forEach(function (t) { t.visible = true });
+            app.camera.flyTo({
+                position: config.cameraStartPos,
+                target: config.cameraStartTar,
+                time: config.cameraDelay
+            });
         }
        
     });
@@ -391,15 +390,25 @@ function create_shujuan( pos,scale,num,name,state ) {
         },
         angle: 90,
         complete: function (obj) {
-            obj.node.scale.set(scale[0],scale[1],scale[2]);
+            // obj.node.scale.set(scale[0],scale[1],scale[2]);
+            obj.scale = [scale[0],scale[1],scale[2]];
             obj.on('mousemove', function() {
-                app.query('danganjuan').forEach(function (t) { t.node.scale.set(0.25,0.9,1);t.style.color = 0xffffff; });
-                obj.node.scale.set(0.25,1,1);
+                app.query('danganjuan').forEach(function (t) {
+                    // t.node.scale.set(0.25,0.9,1);
+                    t.scale = [0.25,0.9,1];
+                    // t.style.color = 0xffffff;
+                });
+                // obj.node.scale.set(0.25,1,1);
+                t.scale = [0.25,1,1];
                 // obj.style.color = 'green';
-                console.log(obj);
+                // console.log(obj);
             })
             obj.on('mousedown',function () {
-                app.query('danganjuan').forEach(function (t) { t.node.scale.set(0.25,0.9,1);t.style.color = 0xffffff; });
+                app.query('danganjuan').forEach(function (t) {
+                    // t.node.scale.set(0.25,0.9,1);
+                    t.scale = [0.25,0.9,1];
+                    // t.style.color = 0xffffff;
+                });
                 obj.node.scale.set(0.25,0.9,1);
                 // obj.style.color = 'green';
                 openbook(name,state);
@@ -643,15 +652,15 @@ function create_up_buttons() {
                 }else{
                     box = boxs[i];
                 }
-                var tempRand = Math.ceil(Math.random()*30+20);
-                var humiRand = Math.ceil(Math.random()*50+20);
+                var tempRand = Math.ceil(Math.random()*50);
+                var humiRand = Math.ceil(Math.random()*100);
                 var data = {
                     // name:'温湿度' + (i+1).toString() + '\n' + '2015-1-14 8:30:00',
                     name:'',
                     // time:'2015-1-14 8:30:00',
-                    temprature: tempRand+"℃",
+                    // temprature: tempRand+"℃",
                     tempMaxSize: tempRand,
-                    humidity:humiRand+"%",
+                    // humidity:humiRand+"%",
                     humiMaxSize: humiRand
                 }
                 var gui = new dat.gui.GUI({
@@ -667,9 +676,9 @@ function create_up_buttons() {
                 gui.add(data, 'name').name('温湿度' + (i+1).toString() + '</br>'+myDate.toLocaleDateString()+' '+mytime );
                 // gui.add(data, 'time').name('');
                 // gui.add(data, 'temprature').name('℃温度');
-                gui.add(data, 'tempMaxSize').name('温度 ℃').step(1).min(0).max(30);
+                gui.add(data, 'tempMaxSize').name('温度 ℃').step(1).min(0).max(100);
                 // gui.add(data, 'humidity').name('%温度');
-                gui.add(data, 'humiMaxSize').name('温度 %').step(1).min(0).max(80);
+                gui.add(data, 'humiMaxSize').name('湿度 %').step(1).min(0).max(100);
                 box.addUI(gui.domElement, [0, box.size[1], 0 ],[0.2,1]);
                 gui.setZIndex(100);
                 box.uiDom = gui;
