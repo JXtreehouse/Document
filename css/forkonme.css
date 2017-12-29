@@ -1,0 +1,68 @@
+.fork-me-wrapper {
+    width: 170px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: 9999;
+}
+.fork-me-git {
+    width: 250px;
+    height: 20px;
+    position:absolute;
+    top: 40px;
+    right: -65px;
+    z-index: 9999;
+    padding: 2px 0;
+    box-shadow: 0 0 10px 0 #888;
+    background-color: #a00000;
+    background-image: none !important;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.fork-me-link-git {
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    text-align: center;
+    color: #fff;
+    padding: 2px 50px;
+    border: 1px solid #fff;
+    text-shadow: 0 0 5px #444;
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    border: none;
+}
+.fork-me-text-git{
+    font-size:15px;
+}
+.fork-me-gitee {
+    width: 150px;
+    height: 20px;
+    z-index: 9999;
+    position:absolute;
+    top: 5px;
+    right: -30px;
+    padding: 2px 0;
+    box-shadow: 0 0 10px 0 #888;
+    background-color: #a00000;
+    background-image: none !important;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.fork-me-link-gitee {
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    width: 100px;
+    text-align: center;
+    color: #fff;
+    padding: 1px 50px;
+    border: 1px solid #fff;
+    text-shadow: 0 0 5px #444;
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    border: none;
+}
+.fork-me-text-gitee{
+    font-size:10px;
+}
