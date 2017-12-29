@@ -390,26 +390,19 @@ function create_shujuan( pos,scale,num,name,state ) {
         },
         angle: 90,
         complete: function (obj) {
-            // obj.node.scale.set(scale[0],scale[1],scale[2]);
             obj.scale = [scale[0],scale[1],scale[2]];
+            console.log(obj.scale);
             obj.on('mousemove', function() {
-                app.query('danganjuan').forEach(function (t) {
-                    // t.node.scale.set(0.25,0.9,1);
-                    t.scale = [0.25,0.9,1];
-                    // t.style.color = 0xffffff;
-                });
-                // obj.node.scale.set(0.25,1,1);
-                t.scale = [0.25,1,1];
+                app.query('danganjuan').forEach(function (t) { t.scale=[0.25,0.9,1];});
+                console.log("mousemove");
+                obj.scale=[0.25,1,1];
+                console.log(obj.scale);
                 // obj.style.color = 'green';
-                // console.log(obj);
             })
             obj.on('mousedown',function () {
-                app.query('danganjuan').forEach(function (t) {
-                    // t.node.scale.set(0.25,0.9,1);
-                    t.scale = [0.25,0.9,1];
-                    // t.style.color = 0xffffff;
-                });
-                obj.node.scale.set(0.25,0.9,1);
+                console.log(obj + "mousedown");
+                app.query('danganjuan').forEach(function (t) { t.scale=[0.25,0.9,1];});
+                obj.scale=[0.25,1,1];
                 // obj.style.color = 'green';
                 openbook(name,state);
             })
@@ -652,7 +645,7 @@ function create_up_buttons() {
                 }else{
                     box = boxs[i];
                 }
-                var tempRand = Math.ceil(Math.random()*50);
+                var tempRand = Math.ceil(Math.random()*100);
                 var humiRand = Math.ceil(Math.random()*100);
                 var data = {
                     // name:'温湿度' + (i+1).toString() + '\n' + '2015-1-14 8:30:00',
