@@ -32,8 +32,9 @@ function appinit(c) {
     docu.cameras = app.query( '[物体类型=摄像头]' );
     docu.pipes = [];
     docu.versions = [];
-    docu.roofs = app.buildings[0].floors[0].roofNode;
-    docu.ceillings = app.buildings[0].floors[0].ceilingNode;
+    docu.floors = app.buildings[0].floors;
+    docu.floors[0].showRoof(false);
+    docu.floors[0].showCeiling(false);
     docu.wallMat = [];
     docu.bookLenArr = {};
     docu.books = [];
@@ -62,8 +63,6 @@ function appinit(c) {
         docu.pipes.push(app.query( 'cube'+i.toString() ));
     }
     docu.pipes.forEach(function (t) { t[0].visible = false });
-    docu.roofs.visible = false;
-    docu.ceillings.visible = false;
     docu.cameras.forEach(function (obj) { add_versions(obj.position,[0,0,-20])});
     docu.versions.forEach(function (t) { app.debug.scene.add(t);t.visible=false });
     
@@ -391,16 +390,16 @@ function create_shujuan( pos,scale,num,name,state ) {
         angle: 90,
         complete: function (obj) {
             obj.scale = [scale[0],scale[1],scale[2]];
-            console.log(obj.scale);
+            // console.log(obj.scale);
             obj.on('mousemove', function() {
                 app.query('danganjuan').forEach(function (t) { t.scale=[0.25,0.9,1];});
-                console.log("mousemove");
+                // console.log("mousemove");
                 obj.scale=[0.25,1,1];
-                console.log(obj.scale);
+                // console.log(obj.scale);
                 // obj.style.color = 'green';
             })
             obj.on('mousedown',function () {
-                console.log(obj + "mousedown");
+                // console.log(obj + "mousedown");
                 app.query('danganjuan').forEach(function (t) { t.scale=[0.25,0.9,1];});
                 obj.scale=[0.25,1,1];
                 // obj.style.color = 'green';
