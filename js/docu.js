@@ -5,8 +5,8 @@ var mytime= myDate.toLocaleTimeString();
 var config = {
     colorSele : 0x8470FF,
     colorDef : 0xffffff,
-    cameraStartPos:[23, 12,-23],
-    cameraStartTar:[14,0, -14],
+    cameraStartPos:[0.7, 19.72,-0.71],
+    cameraStartTar:[-13,-6.33,19],
     cameraDelay : 1000,
     bgcolor: 0xffffff00
 }
@@ -15,7 +15,10 @@ window.onload = function () {
         el: "div3d",
         // url: "https://speech.uinnova.com/static/models/NARA",
         url: "https://uinnova-model.oss-cn-beijing.aliyuncs.com/scenes/NARA",
+        // url: "models/danganguan",
         ak:'app_test_key',
+        // loadSpeed:2,
+        // loadMode:1,
         complete: function () {
             console.log("app scene loaded");
             appinit(config);
@@ -44,12 +47,12 @@ function appinit(c) {
     docu.booksCount = 0;
     
     docu.viewsPos=[];
-    docu.viewsTaregt=[11.7,-1.5,-17.51];
-    docu.viewsPos.A = [25,9.7,-6.6];
-    docu.viewsPos.B = [28,11.7,-13.3];
-    docu.viewsPos.C = [-2,10,-13.97];
-    docu.viewsPos.D1 = [-4.6,11,-21.3];
-    docu.viewsPos.D2 = [18,11,-26];
+    docu.viewsTaregt=[-13,-6.33,19];
+    docu.viewsPos.A = [1.95,11,22];
+    docu.viewsPos.B = [3.5,11.84,11.03];
+    docu.viewsPos.C = [-21.83,15,4.86];
+    docu.viewsPos.D1 = [-22.96,13.37,0.5];
+    docu.viewsPos.D2 = [-7.88,12.7,-0.9];
     
     //资源 ui
     docu.sensorEle = document.getElementById( "mark_sensor" );
@@ -63,7 +66,7 @@ function appinit(c) {
     for(var i = 1;i <= 6;i++){
         docu.pipes.push(app.query( 'cube'+i.toString() ));
     }
-    docu.pipes.forEach(function (t) { t[0].visible = false });
+    // docu.pipes.forEach(function (t) { t[0].visible = false });
     docu.cameras.forEach(function (obj) { add_versions(obj.position,[0,0,-20])});
     docu.versions.forEach(function (t) { app.debug.scene.add(t);t.visible=false });
     
@@ -86,7 +89,7 @@ function appinit(c) {
 }
 function get_filesdata(){
     var jsondata={};
-    $.getJSON("js/json/userinfo.json", function (data,status){
+    $.getJSON("https://speech.uinnova.com/static/models/json/userinfo.json", function (data,status){
         // console.log("是否成功读到数据？ ------ "+status);
         if( status=='success'){
             jsondata = data;
@@ -277,7 +280,7 @@ function create_gps_panel() {
 function click_filebox( number ) {
     var jsondata={};
     if(number.substring(0,6) == '001001' || number.substring(0,6) == '001002'){
-        $.getJSON("js/json/"+ number +".json", function (data,status){
+        $.getJSON("https://speech.uinnova.com/static/models/json/"+ number +".json", function (data,status){
             // console.log("是否成功读到档案柜数据？ ------ "+status);
             if( status=='success'){
                 jsondata = data;
@@ -383,7 +386,7 @@ function create_shujuan( pos,scale,num,name,state ) {
     var obj = app.create({
         type: 'Thing',
         name: 'danganjuan',
-        url: 'models/danganjuan',
+        url: 'https://speech.uinnova.com/static/models/danganjuan',
         position: pos,
         style: {
             color: 0xffffff
@@ -414,7 +417,7 @@ function create_shujuan( pos,scale,num,name,state ) {
 function caculate_pos(str, dagCenterPos, lieCount){
     var centerDAG_X = +dagCenterPos[0];
     var centerDAG_Y = +dagCenterPos[1];
-    var centerDAG_Z = +dagCenterPos[2];
+    var centerDAG_Z = +dagCenterPos[2] - 0.7;
     var slcArr = str.substr(8).split("00");
     var side = slcArr[0];
     var lie = slcArr[1];
