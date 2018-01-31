@@ -22,6 +22,8 @@ window.onload = function () {
         complete: function () {
             console.log("app scene loaded");
             appinit(config);
+            // 引导提示
+            startIntro(documentSteps);
         }
     });
 }
@@ -583,6 +585,7 @@ function openbook( bookName,stateNum ) {
     }
 }
 // 创建上排图标
+var guiIcon;
 function create_up_buttons() {
     var obj = {
         temperature: false,
@@ -595,25 +598,25 @@ function create_up_buttons() {
         open: false,
         snapshoot: false
     }
-    var gui = new dat.gui.GUI({
+    guiIcon = new dat.gui.GUI({
         // type: 'icon1'
         type: 'icon3'
     });
-    // gui.domElement.style.background = 'rgba(0, 0, 0, 0)';
-    // gui.domElement.style.width = 395+'px';
-    gui.setPosition({top: 0, left: 226});
-    var img0 = gui.addImageBoolean(obj, 'temperature').name('温湿度');
+    // guiIcon.domElement.style.background = 'rgba(0, 0, 0, 0)';
+    // guiIcon.domElement.style.width = 395+'px';
+    guiIcon.setPosition({top: 0, left: 226});
+    var img0 = guiIcon.addImageBoolean(obj, 'temperature').name('温湿度');
     // var img1 = gui.addImageBoolean(obj, 'measure').name('测量');
-    var img2 = gui.addImageBoolean(obj, 'smoke').name('烟感');
-    var img3 = gui.addImageBoolean(obj, 'fireControl').name('消防');
-    var img4 = gui.addImageBoolean(obj, 'monitor').name('监控');
-    // var img5 = gui.addImageBoolean(obj, 'entrance').name('门禁');
-    // var img6 = gui.addImageBoolean(obj, 'animation').name('动画');
-    var img7 = gui.addImageBoolean(obj, 'open').name('盲区');
-    // var img8 = gui.addImageBoolean(obj, 'snapshoot').name('快照');
+    var img2 = guiIcon.addImageBoolean(obj, 'smoke').name('烟感');
+    var img3 = guiIcon.addImageBoolean(obj, 'fireControl').name('消防');
+    var img4 = guiIcon.addImageBoolean(obj, 'monitor').name('监控');
+    // var img5 = guiIcon.addImageBoolean(obj, 'entrance').name('门禁');
+    // var img6 = guiIcon.addImageBoolean(obj, 'animation').name('动画');
+    var img7 = guiIcon.addImageBoolean(obj, 'open').name('盲区');
+    // var img8 = guiIcon.addImageBoolean(obj, 'snapshoot').name('快照');
     
-    docu.div3d.insertBefore(gui.domElement,docu.div3d.lastChild);
-    gui.setZIndex(5000);
+    docu.div3d.insertBefore(guiIcon.domElement,docu.div3d.lastChild);
+    guiIcon.setZIndex(5000);
     
     img0.imgUrl('http://demo.3dmomoda.com:8083/momodaKeeper/source/images/icon1.png');
     // img1.imgUrl('http://demo.3dmomoda.com:8083/momodaKeeper/source/images/icon2.png');
